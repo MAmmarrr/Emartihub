@@ -12,12 +12,12 @@ const PaymentForm = () => {
     const { control } = useFormContext();
     function handleInputChange(event, value) {
       console.log(value);
-    
+
     }
-    
+
     return (
       <>
-        
+
               <Autocomplete
               multiple
               id="tags-standard"
@@ -46,36 +46,6 @@ const PaymentForm = () => {
                 />
               )}
             />
-        <Controller
-          control={control}
-          name="cardMonth"
-          render={({ field }) => (
-            <TextField
-              id="cardMonth"
-              label="Other Skills"
-              variant="outlined"
-              placeholder="Enter Additional Skills"
-              fullWidth
-              margin="normal"
-              {...field}
-            />
-          )}
-        />
-        <Controller
-          control={control}
-          name="cardYear"
-          render={({ field }) => (
-            <TextField
-              id="cardYear"
-              label="Occupation"
-              variant="outlined"
-              placeholder="Enter Occupation"
-              fullWidth
-              margin="normal"
-              {...field}
-            />
-          )}
-        />
       </>
     );
   };

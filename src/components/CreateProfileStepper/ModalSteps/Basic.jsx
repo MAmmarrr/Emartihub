@@ -1,5 +1,6 @@
 import React from "react";
 import TextField from '@mui/material/TextField';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
 import {
   Controller,
   useFormContext,
@@ -24,10 +25,11 @@ const BasicForm = () => {
             />
           )}
         />
-  
+
         <Controller
           control={control}
           name="lastName"
+          style={{height:'500px'}}
           render={({ field }) => (
             <TextField
             id="last-name"
@@ -40,19 +42,24 @@ const BasicForm = () => {
             />
           )}
         />
-  
+
         <Controller
           control={control}
-          name="nickName"
+          name="description"
           render={({ field }) => (
             <TextField
-              id="nick-name"
-              label="Identity"
-              variant="outlined"
-              placeholder="Enter Your NIC Number"
-              fullWidth
+            id="description"
+            label="description"
+            variant="outlined"
+            placeholder="Enter description"
+            inputProps={{
+              style: {
+                height: "200px",
+                TextAlign: 'top'
+              },
+            }}
+            fullWidth
               margin="normal"
-              onChange={field.onChange}
               {...field}
             />
           )}

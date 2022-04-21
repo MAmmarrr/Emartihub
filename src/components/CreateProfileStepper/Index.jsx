@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import BasicForm from './ModalSteps/Basic';
+import GetLocation from './ModalSteps/Location';
 import PersonalForm from './ModalSteps/Personnel';
 import ContactForm from './ModalSteps/Contact';
 import PaymentForm from './ModalSteps/Skills/Payment';
@@ -10,6 +11,7 @@ import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Typography from '@mui/material/Typography';
+import Alert from '../Alert'
 import { Grid} from "@material-ui/core";
 import {
   useForm,
@@ -19,34 +21,23 @@ import {
 function getSteps() {
   return [
     "Basic information",
-    "Contact Information",
-    "Personal Information",
-    "Rrofessional Skill",
+    "Professional Skill",
+    "Enable Location"
   ];
 }
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <BasicForm />;
-    case 1:
-      return <ContactForm />;
-    case 2:
-      return <PersonalForm />;
-    case 3:
-      return <PaymentForm />;
-    default:
-      return "unknown step";
-  }
-}
 
 const LinaerStepper = () => {
   const [profileInfo,setProfileInfo] = useState({})
+  const [allowFinish, setAllowFinish] = useState(false);
+  const [alertOpen, setAlertOpen] = useState(false)
+  const [alertText, setAlertText] = useState('')
+  const [alertType, setAlertType] = useState('')
   const methods = useForm({
     defaultValues: {
       firstName: "",
       lastName: "",
-      nickName: "",
+      description: "",
       emailAddress: "",
       phoneNumber: "",
       alternatePhone: "",
@@ -58,8 +49,21 @@ const LinaerStepper = () => {
       cardYear: "",
     },
   });
+  const getStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return <BasicForm />;
+      case 1:
+        return <PaymentForm />;
+      case 2:
+        return <GetLocation onLocationFailed={(res)=> {setAlertType("error"); setAlertText("Please enable the location access to proceed"); setAlertOpen(res); setAllowFinish(!res); if(res === false){handleNext(  );}}}/>;
+      default:
+        return "unknown step";
+    }
+  }
+
   const [activeStep, setActiveStep] = useState(0);
-  const [progress, setProgress] = React.useState(27);
+  const [progress, setProgress] = React.useState(0);
   const [skippedSteps, setSkippedSteps] = useState([]);
   const steps = getSteps();
 
@@ -72,25 +76,24 @@ const LinaerStepper = () => {
   };
 
   const handleNext = (data) => {
-    setProfileInfo(data)
-    console.log(profileInfo)
+    if(data){
+      setProfileInfo(data)
+    }
     if (activeStep === steps.length - 1) {
-      
+
       fetch("https://jsonplaceholder.typicode.com/comments")
         .then((data) => data.json())
         .then((res) => {
           console.log(res);
-          
+
           setActiveStep(activeStep + 1);
-          
+
         });
-        setProgress((prevProgress) => (prevProgress >= 100 ? 100 : prevProgress === 81 ? 100 : prevProgress + 27));
-        
+        setProgress((prevProgress) => 100);
+
       } else {
         setActiveStep(activeStep + 1);
-        setProgress((prevProgress) => (prevProgress >= 100 ? 100 :prevProgress === 81 ? 100 : prevProgress + 27));
-
-
+        setProgress((prevProgress) => (prevProgress >= 100 ? 100 :prevProgress === 66 ? 100 : prevProgress + 33));
       setSkippedSteps(
         skippedSteps.filter((skipItem) => skipItem !== activeStep)
       );
@@ -99,8 +102,7 @@ const LinaerStepper = () => {
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
-    setProgress((prevProgress) => (prevProgress >= 100 ? 27 : prevProgress <= 100 ? 27 : prevProgress === 81 ? 100 : prevProgress + 27));
-
+    setProgress((prevProgress) => (prevProgress - 33));
   };
 
   const handleSkip = () => {
@@ -113,9 +115,9 @@ const LinaerStepper = () => {
   // const onSubmit = (data) => {
   //   console.log(data);
   // };
-  
+
   return (
-    <div> 
+    <div>
          <Box sx={{ width: '100%' }}>
         <LinearProgressWithLabel value={progress} />
       </Box>
@@ -123,7 +125,7 @@ const LinaerStepper = () => {
         {steps.map((step, index) => {
           const labelProps = {};
           const stepProps = {};
-         
+
           if (isStepSkipped(index)) {
             stepProps.completed = false;
           }
@@ -137,7 +139,7 @@ const LinaerStepper = () => {
 
       {activeStep === steps.length ? (
         <Typography variant="h3" align="center">
-          Thank You
+          Profile Created
         </Typography>
       ) : (
         <>
@@ -156,6 +158,20 @@ const LinaerStepper = () => {
               <Grid xs={7}>
 
               </Grid>
+              {activeStep === steps.length - 1 &&(
+              <Grid item xs={3}>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                justify="center"
+                disabled={!allowFinish}
+              >
+                Finish
+              </Button>
+              </Grid>
+              )}
+              {activeStep < steps.length - 1 && (
               <Grid item xs={3}>
               <Button
                 variant="contained"
@@ -163,14 +179,21 @@ const LinaerStepper = () => {
                 type="submit"
                 justify="center"
               >
-                {activeStep === steps.length - 1 ? "Finish" : "Save & Continue"}
-              </Button>    
-              </Grid>          
+                Save & Continue
+              </Button>
+              </Grid>
+              )}
               </Grid>
             </form>
           </FormProvider>
         </>
       )}
+      <Alert
+          open={alertOpen}
+          alertText={alertText}
+          alertType={alertType}
+          handleClose={() => setAlertOpen(false)}
+        />
     </div>
   );
 };

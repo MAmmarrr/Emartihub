@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Modal from '@mui/material/Modal';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
-
+import ImageUploadCard from './GigImage';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -48,6 +48,7 @@ function BasicModal({label}) {
             Create New Profile
             </Typography>
           </Grid>
+          <ImageUploadCard vendorImage={(file) => console.log(file)}/>
       </Grid>
         <Paper component={Box} p={5}>
           <LinearStepper />

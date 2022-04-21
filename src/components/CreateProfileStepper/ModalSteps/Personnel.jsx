@@ -19,7 +19,7 @@ const PersonalForm = () => {
               id="address1"
               label="Address 1"
               variant="outlined"
-              placeholder="Enter Your Address 1"
+              placeholder="Enter Your City"
               fullWidth
               margin="normal"
               {...field}
@@ -35,21 +35,6 @@ const PersonalForm = () => {
               label="Address 2"
               variant="outlined"
               placeholder="Enter Your Address 2"
-              fullWidth
-              margin="normal"
-              {...field}
-            />
-          )}
-        />
-        <Controller
-          control={control}
-          name="country"
-          render={({ field }) => (
-            <TextField
-              id="country"
-              label="Country"
-              variant="outlined"
-              placeholder="Enter Your Country Name"
               fullWidth
               margin="normal"
               {...field}
