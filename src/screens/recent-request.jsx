@@ -7,11 +7,11 @@ export default function RecentRequest() {
     return (
         <div style={{padding:0}} >
                     <Grid container style={{ paddingTop:'2em', backgroundColor:"bg"}}>
-                            <Grid item md={6} style={{marginLeft:'3em' }}>
+                            <Grid item md={6} style={{marginLeft:'1px' }}>
                                 <RenderRequests />
                             </Grid>
                             <Grid item md={5}>
-                                <RequestFilter />                    
+                                <RequestFilter />
                             </Grid>
                     </Grid>
         </div>

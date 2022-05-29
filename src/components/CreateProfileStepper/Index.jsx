@@ -27,49 +27,42 @@ function getSteps() {
 }
 
 
-const LinaerStepper = () => {
+const LinaerStepper = (props) => {
+  const {gigImage ,sentWarning} = props;
   const [profileInfo,setProfileInfo] = useState({})
   const [allowFinish, setAllowFinish] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false)
+  const [allowNext, setAllowNext] = useState(false);
   const [alertText, setAlertText] = useState('')
   const [alertType, setAlertType] = useState('')
+  const [vendorOverview, setVendorOverview] = useState()
   const methods = useForm({
     defaultValues: {
       firstName: "",
       lastName: "",
       description: "",
-      emailAddress: "",
-      phoneNumber: "",
-      alternatePhone: "",
-      address1: "",
-      address2: "",
-      country: "",
-      cardNumber: [],
-      cardMonth: "",
-      cardYear: "",
+      image:'',
+      clip:"",
+      skills: [],
     },
   });
+  methods.image="I AM THE IMAGE";
   const getStepContent = (step) => {
     switch (step) {
       case 0:
         return <BasicForm />;
       case 1:
-        return <PaymentForm />;
+        return <PaymentForm allowNext={(result) => {setAllowNext(result); console.log(result)}} setPreview={(display) => {setVendorOverview(display)}}/>;
       case 2:
         return <GetLocation onLocationFailed={(res)=> {setAlertType("error"); setAlertText("Please enable the location access to proceed"); setAlertOpen(res); setAllowFinish(!res); if(res === false){handleNext(  );}}}/>;
       default:
         return "unknown step";
     }
   }
-
   const [activeStep, setActiveStep] = useState(0);
   const [progress, setProgress] = React.useState(0);
   const [skippedSteps, setSkippedSteps] = useState([]);
   const steps = getSteps();
-
-  const isStepOptional = (step) => {
-    return !true;
-  };
 
   const isStepSkipped = (step) => {
     return skippedSteps.includes(step);
@@ -79,6 +72,14 @@ const LinaerStepper = () => {
     if(data){
       setProfileInfo(data)
     }
+    if(data && gigImage){
+      data.image = gigImage;
+    }
+    if(data && vendorOverview){
+      data.clip = vendorOverview;
+    }
+    console.log(profileInfo)
+    console.log(data);
     if (activeStep === steps.length - 1) {
 
       fetch("https://jsonplaceholder.typicode.com/comments")
@@ -118,7 +119,7 @@ const LinaerStepper = () => {
 
   return (
     <div>
-         <Box sx={{ width: '100%' }}>
+         <Box sx={{ width: '100%'}}>
         <LinearProgressWithLabel value={progress} />
       </Box>
       <Stepper alternativeLabel activeStep={activeStep} >
@@ -138,15 +139,15 @@ const LinaerStepper = () => {
       </Stepper>
 
       {activeStep === steps.length ? (
-        <Typography variant="h3" align="center">
-          Profile Created
+        <Typography variant="h6" align="center" style={{margin:'2em'}}>
+          Your profile has been submitted for a review
         </Typography>
       ) : (
-        <>
+        <div>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(handleNext)}>
               {getStepContent(activeStep)}
-              <Grid container xs={12}>
+              <Grid container xs={12} justifyContent="space-around" alignItems="center">
               <Grid item xs={2}>
               <Button
                 disabled={activeStep === 0}
@@ -165,7 +166,7 @@ const LinaerStepper = () => {
                 color="primary"
                 type="submit"
                 justify="center"
-                disabled={!allowFinish}
+                disabled={!allowFinish && !vendorOverview}
               >
                 Finish
               </Button>
@@ -177,7 +178,13 @@ const LinaerStepper = () => {
                 variant="contained"
                 color="primary"
                 type="submit"
-                justify="center"
+                size="small"
+                onClick={()=>{
+                  if(!gigImage){
+                      sentWarning("Profile not found");
+                  }
+                }}
+                disabled={(activeStep === 1 && !allowNext) || !gigImage}
               >
                 Save & Continue
               </Button>
@@ -186,7 +193,7 @@ const LinaerStepper = () => {
               </Grid>
             </form>
           </FormProvider>
-        </>
+        </div>
       )}
       <Alert
           open={alertOpen}

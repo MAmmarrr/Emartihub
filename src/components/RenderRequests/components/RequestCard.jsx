@@ -25,13 +25,11 @@ import { Button, Divider, Grid } from '@mui/material';
 const useStyles = makeStyles((theme) => ({
   newPosOfDialog: {
     top:'2.4em',
-    left: "25%",
     height:'100%',
     width:'100em',
   },
   bidPosOfDialog:{
     top:'2.4em',
-    right: "5%",
     height:'100%',
     width:'100em',
   }
@@ -48,7 +46,7 @@ export default function ClientRequest({data}) {
 
   return (
     <>
-    <Card sx={{ maxWidth: '95%', borderRadius: 0, boxShadow:5, border:1,}} style={{marginTop: '1em'}}>
+    <Card sx={{ width: 'auto', borderRadius: 0, boxShadow:5, border:1}} style={{marginTop: '1em'}}>
       <CardHeader md={8}
         avatar={
           <Avatar sx={{ bgcolor: '#fb8500' }} color="secondary" aria-label="recipe">
@@ -74,13 +72,8 @@ export default function ClientRequest({data}) {
       </CardContent>
             </Link>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <Grid container alignContent='center'>
+
+        <Grid container alignContent='center' justifyContent={'right'}>
         <Grid item>
         <Typography style={{color: 'black', fontSize: 18, fontWeight: 'bold', marginLeft: '10%', marginTop:'0.4em'}} >details</Typography>
         </Grid>
@@ -93,7 +86,6 @@ export default function ClientRequest({data}) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
       <Dialog
-    scroll={'paper'}
      classes={{
       paper: classes.newPosOfDialog
       }}
@@ -126,26 +118,30 @@ export default function ClientRequest({data}) {
             <Grid container style={{marginLeft:'1em'}} justifyContent='center' alignItems='center'>
               <Grid item xs={8}>
             <Grid container xs={8}>
-              <Grid item xs={4}>
-                <LocationOnIcon />
-            <Typography>
-             Location
+              <Grid item xs={8} style={{marginTop:'2em'}}>
+                <LocationOnIcon style={{height:20, width:20}}/>
+            <Typography style={{display:'inline'}} variant={'h6'}>
+             Karachi
             </Typography>
               </Grid>
             </Grid>
               </Grid>
-              <Grid itex xs={4}  >
-              <Button onClick={()=> setExpandBid(true)}color='secondary' style={{backgroundColor:'#FF9E00', borderRadius: 30}}>
+              <Grid item xs={4} style={{marginTop:'3em'}} >
+              <Button onClick={()=> {setExpandBid(true); setExpanded(false)}}color='secondary' style={{backgroundColor:'#FF9E00', borderRadius: 30}}>
                 Place Bid
               </Button>
               </Grid>
             </Grid>
+            <Grid>
+              <Typography variant={'subtitle2'}>
+                Need 4 skilled construction workers
+              </Typography>
+            </Grid>
           </Grid>
-         <Divider style={{marginTop: '1em'}}/>
-          <Grid height={450}>
+          <Grid height={'100%'}>
             <Grid container style={{marginLeft:'1em'}} alignItems='center'>
               <Grid item xs={8}>
-              <Typography style={{color: 'black', fontSize: 15, marginLeft: '10%', marginTop:'1em'}} >Full Details</Typography>
+              {/* <Typography style={{color: 'black', fontSize: 15, marginLeft: '10%', marginTop:'1em'}} >Full Details</Typography> */}
               </Grid>
             </Grid>
           </Grid>
@@ -160,7 +156,6 @@ export default function ClientRequest({data}) {
 
       <Collapse in={expandBid} timeout="auto" unmountOnExit>
       <Dialog
-    scroll={'paper'}
      classes={{
       paper: classes.bidPosOfDialog
       }}
@@ -180,7 +175,7 @@ export default function ClientRequest({data}) {
           <Grid container xs={12}>
             <Grid item xs={0.5}>
           <IconButton aria-label="share">
-          <ArrowBack onClick={()=> setExpandBid(false)}/>
+          <ArrowForward onClick={()=> {setExpandBid(false);  setExpanded(true)}}/>
             </IconButton>
             </Grid>
             <Grid item xs={10}>
@@ -189,7 +184,7 @@ export default function ClientRequest({data}) {
             </Grid>
           </Grid>
           <Divider style={{marginTop: '1em'}}/>
-          <Grid height={300}>
+          <Grid height={'100%'}>
             <Grid container style={{marginLeft:'1em'}} justifyContent='center' alignItems='center'>
               <Grid item xs={8}>
             <Grid container xs={8}>

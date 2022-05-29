@@ -6,7 +6,8 @@ import {
   useFormContext,
 } from "react-hook-form";
 
-const BasicForm = () => {
+const BasicForm = (props) => {
+  const {allowNext} = props;
     const { control } = useFormContext();
     return (
       <>
@@ -20,6 +21,7 @@ const BasicForm = () => {
               variant="outlined"
               placeholder="Enter Your First Name"
               fullWidth
+              required
               margin="normal"
               {...field}
             />
@@ -37,6 +39,7 @@ const BasicForm = () => {
             variant="outlined"
             placeholder="Enter Your Last Name"
             fullWidth
+            required
               margin="normal"
               {...field}
             />
@@ -52,10 +55,12 @@ const BasicForm = () => {
             label="description"
             variant="outlined"
             placeholder="Enter description"
+            required
             inputProps={{
+              minLength:10,
               style: {
-                height: "200px",
-                TextAlign: 'top'
+                height: "90px",
+                TextAlign: 'top',
               },
             }}
             fullWidth

@@ -43,7 +43,6 @@ const styles = theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
     width: '100%',
-    marginTop: '2em',
     display: "flex",
     justifyContent: "center",
     alignItems: "flex-end"
@@ -120,7 +119,6 @@ class ImageUploadCard extends React.Component {
     }
   }));
   handleUploadClick = event => {
-    console.log();
     var file = event.target.files[0];
     var reader = new FileReader();
     var url = reader.readAsDataURL(file);
@@ -206,8 +204,8 @@ class ImageUploadCard extends React.Component {
       <React.Fragment>
         <CardActionArea onClick={this.imageResetHandler}>
           <img
-            width='200px'
-            height='200px'
+            width='100%'
+            height='100%'
             className={classes.media}
             src={this.state.selectedFile}
           />

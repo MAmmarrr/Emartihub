@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 
 export default function RequestFilter() {
   const classes = useStyles();
-  
+
   const [catFilter,setCatFilter] = useState(false);
   const [numberOfWorkersFilter,setNumberOfWorkers] = useState(false);
   const [projectLengthFilter,setProjectLengthFilter] = useState(false);
@@ -47,8 +47,8 @@ export default function RequestFilter() {
             </Typography>
             <Collapse in={catFilter} timeout="auto" unmountOnExit>
             <CardContent>
-              <TextField variant="outlined"  size="small" style={{width:'22em' }} placeholder="search by category" />
-              
+              <TextField variant="outlined"  size="small" placeholder="search by category" />
+
             </CardContent>
           </Collapse>
           </Grid>
@@ -64,7 +64,7 @@ export default function RequestFilter() {
           </Grid>
         </Grid>
       </CardActions>
-      
+
       <CardActions>
         <Grid container>
           <Grid item md={10}>
@@ -73,8 +73,8 @@ export default function RequestFilter() {
             </Typography>
             <Collapse in={projectLengthFilter} timeout="auto" unmountOnExit>
             <CardContent>
-              <TextField variant="outlined" fullWidth size="small" style={{width:'22em' }} placeholder="search by project length"
-              
+              <TextField variant="outlined" fullWidth size="small" placeholder="search by project length"
+
               ></TextField>
             </CardContent>
           </Collapse>
@@ -91,7 +91,7 @@ export default function RequestFilter() {
           </Grid>
         </Grid>
       </CardActions>
-      
+
       <CardActions>
         <Grid container>
           <Grid item md={10}>
@@ -99,9 +99,9 @@ export default function RequestFilter() {
               Number of Workers
             </Typography>
             <Collapse in={numberOfWorkersFilter} timeout="auto" unmountOnExit>
-            <CardContent> 
-              <TextField variant="outlined" fullWidth size="small" style={{width:'22em' }} placeholder="search by number of workers"
-              
+            <CardContent>
+              <TextField variant="outlined" fullWidth size="small" placeholder="search by number of workers"
+
               ></TextField>
             </CardContent>
           </Collapse>
@@ -126,8 +126,8 @@ export default function RequestFilter() {
             </Typography>
             <Collapse in={clientLocationFilter} timeout="auto" unmountOnExit>
             <CardContent>
-              <TextField variant="outlined" fullWidth size="small" style={{width:'22em' }} placeholder="search by location"
-              
+              <TextField variant="outlined" fullWidth size="small" placeholder="search by location"
+
               ></TextField>
             </CardContent>
           </Collapse>

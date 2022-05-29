@@ -7,7 +7,7 @@ import TranslateIcon from '@material-ui/icons/Translate';
 export default function About() {
     return (
         <>
-            <Box component="div" sx={{ width: 400, height:650 , border: '1px solid #e6e8e6', backgroundColor: '#ffffff', borderRadius:1}}>
+            <Box component="div" sx={{ width: 320, height:650 , border: '1px solid #e6e8e6', backgroundColor: '#ffffff', borderRadius:1}}>
                 <Grid container xs={12} justify="center">
                     <Grid container justify='center'>
             <Avatar
@@ -17,7 +17,7 @@ export default function About() {
                 />
                 <Grid container xs={12} justify="center">
                 <Typography style={{ marginTop:'1em', fontSize:'2em', fontWeight:'bold'}}>
-                        Zaryab Qadri
+                        Zaryab Khan
                 </Typography>
                 </Grid>
                     </Grid>
@@ -56,23 +56,23 @@ export default function About() {
 
                     <Grid item xs={12}>
                         <Typography>
-                        Urdu 
+                        Urdu
                         </Typography>
                     </Grid>
 
                     <Grid item xs={12}>
                         <Typography>
-                        Sindhi 
+                        Sindhi
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <Typography>
-                        English 
+                        English
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <Typography>
-                        Hindi 
+                        Hindi
                         </Typography>
                     </Grid>
                     </Grid>
@@ -82,7 +82,6 @@ export default function About() {
                 <Grid container xs={12} style={{marginLeft:'2.5em', marginTop:'1em'}}>
                     <Grid item xs={3}>
                         <Typography style={{fontWeight:'bold', fontSize:'1.1em'}}>
-
                         Skills
                         </Typography>
                     </Grid>

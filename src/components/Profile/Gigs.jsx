@@ -6,7 +6,7 @@ export default function Gigs(props) {
     const {image, description} = props;
     return (
         <>
-            <Box component="div" sx={{ width: 270, height:300 , border: '1px solid #e6e8e6', backgroundColor: '#ddb892', borderRadius:1, marginLeft:'1em', marginBottom:'1em'}}>
+            <Box component="div" xs={12} sx={{ width: 270, height:300 , border: '1px solid #e6e8e6', backgroundColor: '#ddb892', borderRadius:1, marginLeft:'1em', marginBottom:'1em'}}>
                 <Grid container xs={12}>
                     <CardMedia
                     component="img"
